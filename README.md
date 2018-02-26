@@ -1,2 +1,2 @@
-# MachineLearning
-MachineLearning Problems 
+# Machine Learning
+MachineLearning Examples using python (Scikit Learn)
