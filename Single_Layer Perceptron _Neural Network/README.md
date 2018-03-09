@@ -1,2 +1,0 @@
-# DeepLearning
-DeepLearning Models
