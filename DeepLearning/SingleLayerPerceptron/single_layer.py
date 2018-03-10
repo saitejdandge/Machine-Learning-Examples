@@ -106,6 +106,7 @@ import tensorflow as tf
 sess = tf.InteractiveSession()
 x = tf.placeholder(tf.float32, shape=[None, input_size])
 y_ = tf.placeholder(tf.float32, shape=[None, output_size])
+
 W = tf.Variable(tf.zeros([input_size,output_size]))
 b = tf.Variable(tf.zeros([output_size]))
 
@@ -122,7 +123,7 @@ train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 testing_accuracies=[]
 
 
-iterations=range(1,9000)
+iterations=range(1,5000)
 
 for i in iterations:
   #batch = mnist.train.next_batch(100)
@@ -132,10 +133,12 @@ for i in iterations:
   features_batch,labels_batch=get_batch(X_train,100)
   train_step.run(feed_dict={x: features_batch, y_: labels_batch})
 
-  correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
-  accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-  test_score=(accuracy.eval(feed_dict={x: X_test.tolist(), y_: y_test.tolist()}))
-  testing_accuracies.append(test_score)
+  
+  # correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
+  # accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+  # test_score=(accuracy.eval(feed_dict={x: X_test.tolist(), y_: y_test.tolist()}))
+  # print(test_score)
+  # testing_accuracies.append(test_score)
 
 
   
@@ -145,19 +148,14 @@ for i in iterations:
   # plt.ylabel("Accuracies")
   # plt.pause(0.0000005)
 
-
- 
   pass
 
 
-
-
-# while True:
-#     plt.pause(0.05)
+correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+test_score=(accuracy.eval(feed_dict={x: X_test.tolist(), y_: y_test.tolist()}))
+print(test_score)
 print("-------done-----------")
-# correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
-# accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-# print(accuracy.eval(feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
 
 
 
